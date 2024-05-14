@@ -50,6 +50,73 @@ INSTALLED_APPS = [
     'two_factor',
     'two_factor.plugins.phonenumber',  # <- if you want phone number capability.
     'two_factor.plugins.email',  # <- if you want email capability.
+
+    
+    # for allauth
+    'allauth',
+    'allauth.account',
+    
+    'allauth.mfa',
+
+    # Optional -- requires install using `django-allauth[socialaccount]`.
+    'allauth.socialaccount',
+    # ... include the providers you want to enable:
+    'allauth.socialaccount.providers.agave',
+    'allauth.socialaccount.providers.amazon',
+    'allauth.socialaccount.providers.amazon_cognito',
+    'allauth.socialaccount.providers.angellist',
+    'allauth.socialaccount.providers.apple',
+    'allauth.socialaccount.providers.asana',
+    'allauth.socialaccount.providers.auth0',
+    'allauth.socialaccount.providers.authentiq',
+    'allauth.socialaccount.providers.baidu',
+    'allauth.socialaccount.providers.basecamp',
+    'allauth.socialaccount.providers.battlenet',
+    'allauth.socialaccount.providers.bitbucket_oauth2',
+    'allauth.socialaccount.providers.bitly',
+    'allauth.socialaccount.providers.box',
+    'allauth.socialaccount.providers.cilogon',
+    'allauth.socialaccount.providers.clever',
+    'allauth.socialaccount.providers.coinbase',
+    'allauth.socialaccount.providers.dataporten',
+    'allauth.socialaccount.providers.daum',
+    'allauth.socialaccount.providers.digitalocean',
+    'allauth.socialaccount.providers.dingtalk',
+    'allauth.socialaccount.providers.discord',
+    'allauth.socialaccount.providers.disqus',
+    'allauth.socialaccount.providers.douban',
+    'allauth.socialaccount.providers.doximity',
+    'allauth.socialaccount.providers.draugiem',
+    'allauth.socialaccount.providers.drip',
+    'allauth.socialaccount.providers.dropbox',
+    'allauth.socialaccount.providers.dwolla',
+    'allauth.socialaccount.providers.edmodo',
+    'allauth.socialaccount.providers.edx',
+    'allauth.socialaccount.providers.eventbrite',
+    'allauth.socialaccount.providers.eveonline',
+    'allauth.socialaccount.providers.evernote',
+    'allauth.socialaccount.providers.exist',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.feedly',
+    'allauth.socialaccount.providers.figma',
+    'allauth.socialaccount.providers.fivehundredpx',
+    'allauth.socialaccount.providers.flickr',
+    'allauth.socialaccount.providers.foursquare',
+    'allauth.socialaccount.providers.frontier',
+    'allauth.socialaccount.providers.fxa',
+    'allauth.socialaccount.providers.gitea',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.gitlab',
+    'allauth.socialaccount.providers.globus',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.gumroad',
+    'allauth.socialaccount.providers.hubic',
+    'allauth.socialaccount.providers.instagram',
+    'allauth.socialaccount.providers.jupyterhub',
+    'allauth.socialaccount.providers.kakao',
+    'allauth.socialaccount.providers.lemonldap',
+    'allauth.socialaccount.providers.line',
+
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -75,7 +142,22 @@ MIDDLEWARE = [
     'django_auto_logout.middleware.auto_logout',
     
     'django_otp.middleware.OTPMiddleware',
+    
+    # for allauth
+    "allauth.account.middleware.AccountMiddleware",
 ]
+
+
+#### added this here
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+
 
 # AUTO_LOGOUT
 AUTO_LOGOUT = {'IDLE_TIME': 300, 'MESSAGE': "The session has expired, Please login again to continue"}
@@ -100,6 +182,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'inventory_management.wsgi.application'
 
+
+MFA_FORMS = {
+    'authenticate': 'allauth.mfa.forms.AuthenticateForm',
+    'reauthenticate': 'allauth.mfa.forms.AuthenticateForm',
+    'activate_totp': 'allauth.mfa.forms.ActivateTOTPForm',
+    'deactivate_totp': 'allauth.mfa.forms.DeactivateTOTPForm',
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
