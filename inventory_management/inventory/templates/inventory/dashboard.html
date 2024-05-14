@@ -1,0 +1,65 @@
+{% extends 'inventory/base.html' %}
+
+{% block user_name %}
+    {% if request.user.is_authenticated %}
+        <br>
+        <br>
+        <br>
+        <h1 class="md-10 mx-auto text-body-secondary text-center">Hello {{ request.user.username }}</h1>
+        <br>
+        <br>
+        <br>
+    {% endif %}
+
+{% endblock user_name %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-10 col-11 mx-auto mt-5">
+            <div class="d-flex justify-content-end">
+                <a href="#" class="btn btn-primary">+</a>
+            </div>
+        
+
+            <table class="table table-hover table-striped text-align-center">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Category</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if items|length == 0 %}
+                        <tr>
+                            <th scope="row">-</th>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    {% else %}
+
+                        {% for item in items %}
+                            <tr>
+                                <th scope="row">
+                                    {{ item.id }}
+                                </th>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.category.name }}</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

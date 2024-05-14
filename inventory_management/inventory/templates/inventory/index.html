@@ -1,0 +1,24 @@
+{% extends 'inventory/base.html' %}
+
+{% comment %} {% block user_name %}
+    {% if request.user.is_authenticated %}
+    <h1 class="md-10 mx-auto text-body-secondary text-center">Hello {{ request.user.is_active }}</h1>
+    {% endif %}
+{% endblock user_name %} {% endcomment %}
+
+{% block content %}
+    <div>
+        <div class="row">
+            <div class="col-sm-11 col-md-4 mx-auto mt-5 px-3">
+                <h1 class="fw-light">Track and Manage You Inventory</h1>
+                <p class="fw-light">
+                    Keep Track of your inventory and recieve quantity alerts for low inventory
+                </p>
+
+                <div>
+                    <a href="{% url 'dashboard' %}" class="btn btn-primary">Get Started Now!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
