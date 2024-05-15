@@ -57,8 +57,8 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGIN_REDIRECT_URL='/dashboard'
-LOGIN_URL = "/login"
-#LOGIN_URL = "two_factor:login"
+#LOGIN_URL = "/login"
+LOGIN_URL = "two_factor:login"
 
 RECAPTCHA_PUBLIC_KEY = '6LfxfaUpAAAAAEjHGN14Lo1DtgoJ44-UC5goCBHt'
 RECAPTCHA_PRIVATE_KEY = '6LfxfaUpAAAAACXiLhNUU1XIkptCg2EfpXwfcGVi'
