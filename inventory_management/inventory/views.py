@@ -18,7 +18,7 @@ class Dashboard(View):
             items = InventoryItem.objects.filter(user=self.request.user.id).order_by('id')
             return render(request, 'inventory/dashboard.html', {'items': items})
         else:
-            return redirect('login')
+            return redirect('two_factor:login')
 
 
 class SignUpView(View):

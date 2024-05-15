@@ -7,6 +7,21 @@
 		<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 			<ul class="navbar-nav">
 				{% if user.is_authenticated %}
+					{% if user.is_superuser %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'admin:index' %}">{{ user.username }}</a>
+					</li>
+					<li class="nav-item">
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            {% comment %} <button type="submit">logout</button> {% endcomment %}
+                            <a class="nav-link" onclick="this.parentNode.submit();" href="#">Logout</a>
+                        </form>
+                    </li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'two_factor:profile' %}">Setup 2FA</a>
+					</li>
+					{% else %}
 					<li class="nav-item">
 						<a class="nav-link" href="#">{{ user.username }}</a>
 					</li>
@@ -17,10 +32,14 @@
                             <a class="nav-link" onclick="this.parentNode.submit();" href="#">Logout</a>
                         </form>
                     </li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'two_factor:profile' %}">Setup 2FA</a>
+					</li>
+					{% endif %}
 
                 {% else %}
 					<li class="nav-item">
-						<a class="nav-link" href="{% url 'login' %}">Sign In</a>
+						<a class="nav-link" href="{% url 'two_factor:login' %}">Sign In</a>
 					</li>
 
 					<li class="nav-item">
