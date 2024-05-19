@@ -37,3 +37,8 @@ class Comment(models.Model):
     email = models.EmailField()
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
+    
+
+class Pics(models.Model):
+    name = models.CharField(max_length = 64)
+    image = models.ImageField(upload_to='images/')

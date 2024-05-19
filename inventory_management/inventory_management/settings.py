@@ -28,6 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = ['192.168.1.19','0.0.0.0','127.0.0.1', '172.16.28.1','172.20.10.2']
 
 
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'django_recaptcha',
+    'widget_tweaks',
     
     # for 2fa
     'django_otp',

@@ -1,0 +1,17 @@
+{% extends 'inventory/base.html' %}
+
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
+{% block content %}
+
+{% for pic in pics %}
+<div class="max-w-sm rounded overflow-hidden shadow-lg">
+    <img class="w-full" src="{{ pic.image.url }}" alt="{{ pic.name }}">
+    <div class="px-6 py-4">
+      <div class="font-bold text-xl mb-2">{{ pic.name }}</div>
+    </div>
+    <br>
+  </div>
+{% endfor %}
+
+{% endblock %}

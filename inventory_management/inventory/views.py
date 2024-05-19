@@ -6,8 +6,8 @@ from django_recaptcha.fields import ReCaptchaField
 from django_recaptcha.widgets import ReCaptchaV2Checkbox
 
 from django import forms
-from .forms import UserRegisterForm, CommentForm
-from .models import InventoryItem, Post
+from .forms import UserRegisterForm, CommentForm, ImageForm
+from .models import InventoryItem, Post, Pics
 
 class Index(TemplateView):
 	template_name = 'inventory/index.html'
@@ -79,3 +79,21 @@ def post_detail(request, slug):
         return render(request, 'inventory/blog_detailed.html', {'post':post, 'form':form})
     else:
         return redirect('two_factor:login')
+    
+
+def upload_form(request):
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+        else:
+            context={'form':form}
+            return render(request, 'inventory/uploads.html', context)
+    context = {'form': ImageForm()}
+    return render(request, 'inventory/uploads.html', context)
+
+
+def view_pic(request):
+    pics = Pics.objects.all()
+    context = {'pics':pics}
+    return render(request, 'inventory/list.html', context)

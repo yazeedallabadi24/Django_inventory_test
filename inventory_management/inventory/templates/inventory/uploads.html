@@ -1,0 +1,35 @@
+{% extends 'inventory/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<br>
+<br>
+<a href="{% url 'list-view' %}" class="btn btn-primary">Show Images</a>
+<br>
+<br>
+<form method="POST" enctype='multipart/form-data'>
+    {% csrf_token %}
+
+    {% comment %} <div>
+        {{ form.name }}
+        <br>
+        {% render_field form.name %}
+        <br>
+    </div> {% endcomment %}
+
+    <div>
+        {{ form.name|add_label_class:"block mb-2 text-sm font-medium text-gray-900 dark:text-white" }}
+        {% render_field form.name %}
+    </div>
+    <br>
+    <div>
+        {{ form.image|add_label_class:"block mb-2 text-sm font-medium text-gray-900 dark:text-white" }}
+        {% render_field form.image %}
+    </div>
+
+    <input class="form-control" type="submit" value="Submit" class="">
+
+</form>
+
+<input type="submit" value="Submit">
+{% endblock %}
