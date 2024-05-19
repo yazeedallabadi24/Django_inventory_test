@@ -1,0 +1,16 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+    <br>
+    <br>
+    <div class="card text-white bg-primary mb-3" style="max-width: 150rem;">
+        <div class="card-header">{{ post.date_added }}</div>
+        <div class="card-body">
+          <h4 class="card-title">{{ post.title }}</h4>
+          <p class="card-text">S{{ post.intro }}</p>
+        </div>
+      </div>
+      <a href="{% url 'post_detail' post.slug %}">Read More</a>
+    {% endfor %}
+{% endblock content %}

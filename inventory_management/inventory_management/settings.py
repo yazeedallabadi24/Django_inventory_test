@@ -77,7 +77,7 @@ MIDDLEWARE = [
 ]
 
 # AUTO_LOGOUT
-AUTO_LOGOUT = {'IDLE_TIME': 300, 'MESSAGE': "The session has expired, Please login again to continue"}
+AUTO_LOGOUT = {'IDLE_TIME': 10000, 'MESSAGE': "The session has expired, Please login again to continue"}
 
 ROOT_URLCONF = 'inventory_management.urls'
 

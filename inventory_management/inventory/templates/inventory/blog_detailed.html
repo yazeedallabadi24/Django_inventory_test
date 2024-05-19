@@ -1,0 +1,64 @@
+{% extends 'inventory/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1><strong> {{ post.title }} </strong></h1>
+
+<p class="text-primary"> Posted at {{ post.date_added }} </p>
+
+<h4> {{ post.intro }} </h4>
+
+<p class="lead">{{ post.body }}</p>
+
+<hr>
+
+
+<h2>Comments</h2>
+{% for comment in post.comments.all %}
+    <article>
+        <div>
+            <div>
+                <p>
+                    {% comment %} <strong>
+                        {{ comment.name }}
+                    </strong> {% endcomment %}
+                    
+                    <small>
+                        {{ comment.date_added }}
+                    </small>
+                    <br>
+
+                    {{ comment.body }}
+                </p>
+            </div>
+        </div>
+    </article>
+
+    {% empty %}
+
+    <div>
+        <p>
+            No comments Yet
+        </p>
+    </div>
+{% endfor %}
+
+
+
+<hr>
+
+<h2>Add Comment</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <div>
+        <div>
+            <button class="btn btn-success">Submit</button>
+        </div>
+    </div>
+</form>
+{% endblock content %}
