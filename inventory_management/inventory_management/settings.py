@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ceu*@5(yh+91uh(kijr2a*5ui3$fpmjvyt!(eho294tscyktm=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.19','0.0.0.0','127.0.0.1', '172.16.28.1','172.20.10.4','172.20.10.2']
+ALLOWED_HOSTS = ['192.168.1.23','0.0.0.0','127.0.0.1', '172.16.28.1','172.20.10.4','172.20.10.2']
 
 
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -36,6 +36,7 @@ MEDIA_URL = '/media/'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -46,6 +47,13 @@ INSTALLED_APPS = [
     'django_recaptcha',
     'widget_tweaks',
     
+    # !for Oauth
+    # # Required by django-allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    
     # for 2fa
     'django_otp',
     'django_otp.plugins.otp_static',
@@ -55,6 +63,14 @@ INSTALLED_APPS = [
     'two_factor.plugins.email',  # <- if you want email capability.
 ]
 
+SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Match your current verification policy
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'  # Usually set to 'none' for OAuth providers
+
+
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
@@ -63,8 +79,10 @@ LOGIN_REDIRECT_URL='/dashboard'
 #LOGIN_URL = "/login"
 LOGIN_URL = "two_factor:login"
 
-RECAPTCHA_PUBLIC_KEY = '6LfxfaUpAAAAAEjHGN14Lo1DtgoJ44-UC5goCBHt'
-RECAPTCHA_PRIVATE_KEY = '6LfxfaUpAAAAACXiLhNUU1XIkptCg2EfpXwfcGVi'
+#!### FILL HERE ####
+RECAPTCHA_PUBLIC_KEY = '' #! Recaptcha public key
+RECAPTCHA_PRIVATE_KEY = '' #! Recaptcha Private Key
+#!### FILL HERE ####
 SILENCED_SYSTEM_CHECKS = ['django_recaptcha.recaptcha_test_key_error']
 
 MIDDLEWARE = [
@@ -78,6 +96,16 @@ MIDDLEWARE = [
     'django_auto_logout.middleware.auto_logout',
     
     'django_otp.middleware.OTPMiddleware',
+    
+    'allauth.account.middleware.AccountMiddleware',
+]
+
+AUTHENTICATION_BACKENDS = [
+    # Default Django backend - keep this!
+    'django.contrib.auth.backends.ModelBackend',
+    
+    # Add the allauth backend
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 # AUTO_LOGOUT
@@ -107,17 +135,18 @@ WSGI_APPLICATION = 'inventory_management.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+#!### FILL HERE ####
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_app',
         'USER': 'root',
-        'PASSWORD': 'QueueThatW@69',
+        'PASSWORD': '', # your MySQL DB Password
         "HOST": '127.0.0.1',
         'PORT': '3306'
     }
 }
-
+#!### FILL HERE ####
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -163,11 +192,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-
+#!### FILL HERE ####
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-DEFAULT_FROM_EMAIL = "djangoinventory9@outlook.com"
-EMAIL_HOST = "smtp-mail.outlook.com"
+
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "djangoinventory9@outlook.com"
-EMAIL_HOST_PASSWORD = "H!kqsRSAt9w5f8"
+EMAIL_HOST_USER = "" # your email
+EMAIL_HOST_PASSWORD = ""  # your app password
+#!### FILL HERE ####
+
+
+
+SOCIALACCOUNT_PROVIDERS= {} #! For OAuth 

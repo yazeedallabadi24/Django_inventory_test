@@ -41,4 +41,8 @@ class Comment(models.Model):
 
 class Pics(models.Model):
     name = models.CharField(max_length = 64)
-    image = models.ImageField(upload_to='images/')
+    image = models.FileField(upload_to='images/')
+    
+# class Pics(models.Model):
+#     name = models.CharField(max_length = 64)
+#     file = models.FileField(upload_to="uploads/")
